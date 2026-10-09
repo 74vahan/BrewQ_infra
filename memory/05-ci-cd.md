@@ -62,7 +62,17 @@ GCP-аккаунта нет). Архивы при этом всё равно с�
 
 Проверяется весь репозиторий (`git ls-files --cached --others --exclude-standard`,
 работает и без коммитов), кроме `node_modules`, `dist`, `build`, `.venv`,
-`.claude`, `_image`, документации `*.md` и файла `app/web/src/i18n/locales/ru.json`.
+`.claude`, `_image`, документации `*.md` и файлов из allow-list (кириллица в них
+разрешена целиком, переменная `ALLOWED_PATHS` в скрипте):
+
+- `app/web/src/i18n/locales/ru.json` — ru-переводы панели (путь с любым префиксом);
+- `terraform/scripts/bootstrap.sh.tftpl` — только BrewQ_image и только этот путь
+  от корня проверяемого репозитория (регэксп `^…$`, без `(^|/)`): одна
+  легитимная русская строка `<p>BrewQ скоро откроется.</p>` — ru-локализация
+  стаб-страницы баристы рядом с en/hy (решение пользователя, 10.10.2026;
+  `BrewQ_image/memory/03-decisions.md`, п. 13). Файл с таким же именем в другой
+  папке по-прежнему даёт ERROR. Минус «целого» файла: лишняя кириллица в этом
+  шаблоне тоже не будет поймана.
 
 1. Тип файла определяется по расширению: `py`, `hash` (sh/yml/toml/txt/Dockerfile/…),
    `slash` (js/ts/tsx/css), `html` (html/svg), `sql`, `none` (json).

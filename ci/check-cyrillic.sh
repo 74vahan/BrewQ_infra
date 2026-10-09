@@ -27,7 +27,10 @@ CYRILLIC='(*UTF)[\x{0400}-\x{052F}]'
 MIXED='(*UTF)(*UCP)\b(?=[\p{L}\p{N}_]*[A-Za-z])(?=[\p{L}\p{N}_]*[\x{0400}-\x{052F}])[\p{L}\p{N}_]+'
 
 # Файлы, где кириллица разрешена целиком.
-ALLOWED_PATHS='(^|/)app/web/src/i18n/locales/ru\.json$'
+# Second entry (BrewQ_image only, exact path from the repo root): the barista
+# stub page in terraform/scripts/bootstrap.sh.tftpl has one deliberate Russian
+# line, the ru localization next to the en/hy lines.
+ALLOWED_PATHS='(^|/)app/web/src/i18n/locales/ru\.json$|^terraform/scripts/bootstrap\.sh\.tftpl$'
 # Пути, которые не проверяются вообще.
 SKIPPED_PATHS='(^|/)(node_modules|dist|build|\.venv|venv|\.git|\.claude|\.ruff_cache|\.pytest_cache|_image)/'
 
