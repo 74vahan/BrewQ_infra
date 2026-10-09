@@ -1,0 +1,30 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 1rem;
+  padding: 0 var(--gutter);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.text {
+  margin: 0;
+  padding: 0.25rem 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.button {
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
+  touch-action: manipulation;
+}

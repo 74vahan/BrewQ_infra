@@ -1,0 +1,40 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.button:hover {
+  border-color: var(--text-muted);
+}
+
+.button[aria-pressed='false'] {
+  color: var(--text-muted);
+}
+
+/* Phones: icon only; the state stays available through aria-label and title. */
+@media (max-width: 40rem) {
+  .text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .button {
+    padding: 0 0.75rem;
+  }
+}

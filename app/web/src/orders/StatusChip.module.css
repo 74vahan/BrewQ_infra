@@ -1,0 +1,39 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.large {
+  font-size: 1.125rem;
+}
+
+.dot {
+  flex: 0 0 auto;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.new {
+  color: var(--status-new);
+}
+
+.progress {
+  color: var(--status-progress);
+}
+
+.ready {
+  color: var(--status-ready);
+}
+
+.done {
+  color: var(--text-muted);
+}
+
+.cancelled {
+  color: var(--danger);
+}

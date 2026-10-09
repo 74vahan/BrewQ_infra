@@ -1,0 +1,10 @@
+.banner {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--danger);
+  border-inline-start-width: 4px;
+  border-radius: var(--radius-sm);
+  background: var(--danger-bg);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}

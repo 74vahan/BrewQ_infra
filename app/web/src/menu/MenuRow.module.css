@@ -1,0 +1,47 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.stopped {
+  border-style: dashed;
+}
+
+.text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.sizes {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+/* Phones: the switch drops under the name, its label stays readable. */
+@media (max-width: 30rem) {
+  .row {
+    flex-wrap: wrap;
+  }
+
+  .text {
+    flex-basis: calc(100% - 56px - 1rem);
+  }
+
+  .row > :last-child {
+    margin-inline-start: auto;
+  }
+}

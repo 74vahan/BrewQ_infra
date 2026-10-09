@@ -1,0 +1,46 @@
+.column {
+  min-width: 0;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.count {
+  min-width: 2rem;
+  padding: 0 0.625rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-raised);
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry {
+  min-width: 0;
+}
+
+.empty {
+  margin: 0;
+  padding: 1.5rem 1rem;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+  text-align: center;
+}

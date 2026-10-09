@@ -1,0 +1,148 @@
+.page {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  padding: 5rem var(--gutter) 2rem;
+}
+
+.language {
+  position: absolute;
+  top: var(--gutter);
+  inset-inline-end: var(--gutter);
+}
+
+/*
+ * The login card is an order ticket: brand stub on top, a perforation with
+ * the two punched notches, the form below. Order cards in the queue reuse the
+ * same metaphor.
+ */
+.ticket {
+  position: relative;
+  width: min(100%, 26rem);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-ticket);
+}
+
+.stub {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2rem 2rem 1.75rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.perforation {
+  position: relative;
+  height: 0;
+  margin-inline: 1.25rem;
+  border-top: 2px dashed var(--border);
+}
+
+.perforation::before,
+.perforation::after {
+  content: '';
+  position: absolute;
+  top: -13px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.perforation::before {
+  inset-inline-start: -2.0rem;
+}
+
+.perforation::after {
+  inset-inline-end: -2.0rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.75rem 2rem 2rem;
+}
+
+.title {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font-size: 1rem;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.input:hover {
+  border-color: var(--text-muted);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+
+.hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.submit {
+  min-height: 52px;
+  margin-top: 0.5rem;
+  padding: 0 1.5rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: filter var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+.submit:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.submit:active:not(:disabled) {
+  filter: brightness(0.94);
+}
+
+.submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.fake {
+  margin: 0;
+  padding: 0.5rem 2rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  text-align: center;
+}

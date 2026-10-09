@@ -1,0 +1,33 @@
+.group {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+}
+
+.option {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.5rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.option:hover {
+  color: var(--text);
+}
+
+.option[aria-pressed='true'] {
+  background: var(--accent);
+  color: var(--accent-ink);
+}

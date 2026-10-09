@@ -1,0 +1,136 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip:focus {
+  top: 1rem;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  padding: 0.5rem var(--gutter);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.brand {
+  flex: 0 0 auto;
+}
+
+.nav {
+  display: flex;
+  flex: 1 1 auto;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1rem;
+  border-bottom: 3px solid transparent;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.link:hover {
+  color: var(--text);
+}
+
+.active {
+  border-bottom-color: var(--accent);
+  color: var(--text);
+}
+
+.actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-inline-start: auto;
+}
+
+.logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.logout:hover {
+  border-color: var(--text-muted);
+}
+
+.main {
+  flex: 1 1 auto;
+  padding: var(--gutter);
+}
+
+.main:focus {
+  outline: none;
+}
+
+/* Phones: brand and controls on the first row, navigation as a full-width second row. */
+@media (max-width: 52rem) {
+  .nav {
+    order: 3;
+    flex-basis: 100%;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+  }
+
+  .link {
+    flex: 1 1 0;
+    justify-content: center;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 30rem) {
+  .logout span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .logout {
+    padding: 0 0.75rem;
+  }
+}

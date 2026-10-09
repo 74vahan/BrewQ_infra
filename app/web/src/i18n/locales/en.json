@@ -1,0 +1,124 @@
+{
+  "app": {
+    "title": "BrewQ",
+    "subtitle": "Barista panel"
+  },
+  "language": {
+    "label": "Language",
+    "native": "English"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "mainNavigation": "Main navigation"
+  },
+  "auth": {
+    "title": "Sign in",
+    "password": "Shop password",
+    "hint": "Ask the manager for the shop password.",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "logout": "Sign out"
+  },
+  "sound": {
+    "label": "New order sound",
+    "on": "Sound on",
+    "off": "Sound off",
+    "blocked": "The browser blocks sound until the first tap.",
+    "enable": "Enable sound"
+  },
+  "common": {
+    "loading": "Loading…",
+    "retry": "Try again",
+    "offline": "No connection. Showing the latest data.",
+    "showingLatest": "Showing the latest data.",
+    "dismiss": "Dismiss"
+  },
+  "dev": {
+    "fakeApi": "Demo data (fake API)",
+    "addOrder": "Add demo order"
+  },
+  "queue": {
+    "title": "Queue",
+    "empty": "No orders",
+    "justNow": "just now",
+    "minutesAgo": "{{minutes}} min ago",
+    "newBadge": "New",
+    "newOrder": "New order {{code}}",
+    "allClear": "No active orders. New ones appear here automatically."
+  },
+  "today": {
+    "title": "Today",
+    "empty": "No orders yet today"
+  },
+  "menu": {
+    "title": "Stop list",
+    "available": "In stock",
+    "unavailable": "Out of stock",
+    "hint": "Switch off what has run out. Customers see these items as unavailable.",
+    "outCount": "Out of stock: {{n}}",
+    "empty": "The menu is empty"
+  },
+  "status": {
+    "NEW": "New",
+    "IN_PROGRESS": "In progress",
+    "READY": "Ready",
+    "PICKED_UP": "Picked up",
+    "CANCELLED": "Cancelled",
+    "unknown": "Unknown status"
+  },
+  "action": {
+    "IN_PROGRESS": "Start",
+    "READY": "Ready",
+    "PICKED_UP": "Picked up",
+    "CANCELLED": "Cancel"
+  },
+  "size": {
+    "S": "S",
+    "M": "M",
+    "L": "L",
+    "unknown": "—"
+  },
+  "category": {
+    "coffee": "Coffee",
+    "tea": "Tea",
+    "cake": "Cakes",
+    "unknown": "Other"
+  },
+  "errors": {
+    "VALIDATION_ERROR": "The request was rejected as invalid. Check the entered data.",
+    "DEVICE_ID_MISSING": "Device identifier is missing. Reload the page.",
+    "DEVICE_ID_INVALID": "Device identifier is invalid. Reload the page.",
+    "SIZE_NOT_OFFERED": "This size is not offered for the item.",
+    "BARISTA_INVALID_PASSWORD": "Wrong password. Try again.",
+    "BARISTA_UNAUTHORIZED": "Session expired. Sign in again.",
+    "NOT_FOUND": "Not found.",
+    "MENU_ITEM_NOT_FOUND": "Menu item not found.",
+    "CART_ITEM_NOT_FOUND": "Cart item not found.",
+    "ORDER_NOT_FOUND": "Order not found.",
+    "METHOD_NOT_ALLOWED": "This action is not supported.",
+    "MENU_ITEM_UNAVAILABLE": "The item is out of stock.",
+    "CART_QTY_LIMIT_EXCEEDED": "Quantity limit reached.",
+    "CART_EMPTY": "The cart is empty.",
+    "CART_HAS_UNAVAILABLE_ITEMS": "Some items are unavailable.",
+    "ACTIVE_ORDER_EXISTS": "This customer already has an active order.",
+    "DAILY_ORDER_LIMIT_REACHED": "Today's order limit is reached.",
+    "ORDER_NOT_CANCELLABLE": "This order can no longer be cancelled.",
+    "INVALID_STATUS_TRANSITION": "The order was already changed. The list has been refreshed.",
+    "RATE_LIMITED": "Too many attempts. Wait a minute and try again.",
+    "INTERNAL_ERROR": "Server error. Try again in a moment.",
+    "SERVICE_UNAVAILABLE": "The service is temporarily unavailable.",
+    "NETWORK": "No connection to the server.",
+    "UNKNOWN": "Something went wrong. Try again."
+  },
+  "order": {
+    "items": "Order items",
+    "total": "Total",
+    "actionFor": "{{action}}: order {{code}}"
+  },
+  "cancel": {
+    "title": "Cancel order {{code}}?",
+    "body": "The customer will see the order as cancelled. This cannot be undone.",
+    "confirm": "Cancel order",
+    "keep": "Keep order"
+  }
+}

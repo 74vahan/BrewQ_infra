@@ -1,0 +1,41 @@
+# Secrets - never in git (VibeCode rule 9)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python (backend)
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.sqlite3
+
+# Node (web)
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+npm-debug.log*
+
+# Logs and coverage
+*.log
+coverage/
+.nyc_output/
+htmlcov/
+.coverage
+
+# Local docker overrides
+docker-compose.override.yml
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

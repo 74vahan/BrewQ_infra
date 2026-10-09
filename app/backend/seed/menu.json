@@ -1,0 +1,100 @@
+{
+  "items": [
+    {
+      "name": "Espresso",
+      "category": "coffee",
+      "price_s": 700,
+      "price_m": 900,
+      "price_l": 1100,
+      "image_url": "/media/menu/espresso.svg"
+    },
+    {
+      "name": "Americano",
+      "category": "coffee",
+      "price_s": 800,
+      "price_m": 1000,
+      "price_l": 1200,
+      "image_url": "/media/menu/americano.svg"
+    },
+    {
+      "name": "Cappuccino",
+      "category": "coffee",
+      "price_s": 1000,
+      "price_m": 1200,
+      "price_l": 1400,
+      "image_url": "/media/menu/cappuccino.svg"
+    },
+    {
+      "name": "Latte",
+      "category": "coffee",
+      "price_s": 1100,
+      "price_m": 1300,
+      "price_l": 1500,
+      "image_url": "/media/menu/latte.svg"
+    },
+    {
+      "name": "Flat White",
+      "category": "coffee",
+      "price_s": 1100,
+      "price_m": 1300,
+      "price_l": 1500,
+      "image_url": "/media/menu/flat-white.svg"
+    },
+    {
+      "name": "Mocha",
+      "category": "coffee",
+      "price_s": 1200,
+      "price_m": 1400,
+      "price_l": 1600,
+      "image_url": "/media/menu/mocha.svg"
+    },
+    {
+      "name": "Black Tea",
+      "category": "tea",
+      "price_s": 700,
+      "price_m": 900,
+      "price_l": 1100,
+      "image_url": "/media/menu/black-tea.svg"
+    },
+    {
+      "name": "Green Tea",
+      "category": "tea",
+      "price_s": 700,
+      "price_m": 900,
+      "price_l": 1100,
+      "image_url": "/media/menu/green-tea.svg"
+    },
+    {
+      "name": "Masala Chai",
+      "category": "tea",
+      "price_s": null,
+      "price_m": 1200,
+      "price_l": 1500,
+      "image_url": "/media/menu/masala-chai.svg"
+    },
+    {
+      "name": "Cheesecake",
+      "category": "cake",
+      "price_s": null,
+      "price_m": 1500,
+      "price_l": null,
+      "image_url": "/media/menu/cheesecake.svg"
+    },
+    {
+      "name": "Napoleon",
+      "category": "cake",
+      "price_s": null,
+      "price_m": 1400,
+      "price_l": null,
+      "image_url": "/media/menu/napoleon.svg"
+    },
+    {
+      "name": "Brownie",
+      "category": "cake",
+      "price_s": null,
+      "price_m": 1200,
+      "price_l": null,
+      "image_url": "/media/menu/brownie.svg"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+.hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem 1rem;
+  padding: 0.25rem var(--gutter);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-raised);
+}
+
+.text {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+.button {
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.button:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+}

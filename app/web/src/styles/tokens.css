@@ -1,0 +1,68 @@
+/*
+ * Design tokens. Dark is the default (a bright screen next to an espresso
+ * machine is glare); light follows prefers-color-scheme. Every text/background
+ * pair below is checked against WCAG AA (4.5:1).
+ */
+
+:root {
+  color-scheme: dark light;
+
+  /* Type */
+  --font-sans: 'BrewQ Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Surfaces */
+  --bg: #121416;
+  --surface: #1a1d20;
+  --surface-raised: #23272b;
+  --border: #3a4047;
+
+  /* Text */
+  --text: #eceff1;
+  --text-muted: #a0aab3;
+
+  /* Accent: crema amber. --accent-ink is the text colour ON the accent. */
+  --accent: #f0b429;
+  --accent-ink: #1d1500;
+
+  /* Order status colours (always paired with a text label, never colour alone) */
+  --status-new: #f0b429;
+  --status-progress: #6cb4ff;
+  --status-ready: #5fd49a;
+
+  --danger: #ff8a80;
+  --danger-bg: rgb(255 138 128 / 0.12);
+  --danger-ink: #2b0b08; /* text ON a --danger background */
+  --focus: #6cb4ff;
+
+  /* Shape and rhythm */
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --gutter: clamp(1rem, 3vw, 2rem);
+  --dur: 160ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --shadow-ticket: 0 16px 48px rgb(0 0 0 / 0.45);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #eef1f3;
+    --surface: #ffffff;
+    --surface-raised: #f6f8f9;
+    --border: #c5ccd2;
+
+    --text: #171b1f;
+    --text-muted: #55616b;
+
+    --status-new: #8a5a00;
+    --status-progress: #0b57b0;
+    --status-ready: #11704a;
+
+    --danger: #b3261e;
+    --danger-bg: rgb(179 38 30 / 0.08);
+    --danger-ink: #ffffff;
+    --focus: #0b63ce;
+
+    --shadow-ticket: 0 16px 48px rgb(23 27 31 / 0.14);
+  }
+}

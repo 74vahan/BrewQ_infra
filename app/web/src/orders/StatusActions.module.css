@@ -1,0 +1,51 @@
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.primary,
+.cancel {
+  min-height: 52px;
+  padding: 0 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: filter var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+/* The big forward button takes the row; cancel sits beside it, quieter. */
+.primary {
+  flex: 3 1 8rem;
+  border: 0;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.cancel {
+  flex: 1 1 5rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--danger);
+  font-size: 0.9375rem;
+}
+
+.primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.primary:active:not(:disabled) {
+  filter: brightness(0.94);
+}
+
+.cancel:hover:not(:disabled) {
+  border-color: var(--danger);
+}
+
+.primary:disabled,
+.cancel:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

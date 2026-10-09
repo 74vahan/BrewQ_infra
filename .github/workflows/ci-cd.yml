@@ -1,0 +1,268 @@
+# CI/CD репозитория BrewQ_infra (backend FastAPI + веб-панель баристы).
+#
+# Файл обязан лежать здесь (требование GitHub), но вся логика шагов - в скриптах
+# ci/: их можно читать и запускать руками. Подробности - memory/05-ci-cd.md.
+#
+# Инфраструктура (Docker, Terraform, nginx) живёт в BrewQ_image: его docker/
+# клонируется сюда checkout'ом (_image/) и собирается вместе с кодом этого
+# репозитория, поэтому CI проверяет тот же образ, что поедет на сервер.
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# GITHUB_TOKEN по умолчанию только читает; ни одному заданию больше не нужно.
+permissions:
+  contents: read
+
+# Новый push отменяет устаревший прогон ветки/PR, но НИКОГДА не прерывает
+# прогон main: в нём может идти деплой.
+concurrency:
+  group: brewq-infra-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  # Ровно то, что едет в прод: Dockerfile на python:3.12, mysql:8.4 в compose.
+  PYTHON_VERSION: '3.12'
+  # Vite 8 требует Node >= 20.19; 22 - текущий LTS.
+  NODE_VERSION: '22'
+
+jobs:
+  quality:
+    name: Lint and repository checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: app/backend/requirements-dev.txt
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Версия ruff закреплена в requirements-dev.txt; ставим только её.
+      - name: Install ruff
+        run: pip install "$(grep -E '^ruff==' app/backend/requirements-dev.txt)"
+
+      - name: Backend lint (ruff check, ruff format --check)
+        run: bash ci/lint-backend.sh
+
+      - name: Cyrillic check (VibeCode rule 5)
+        run: bash ci/check-cyrillic.sh
+
+      - name: Translation key parity (en / ru / hy)
+        run: node ci/check-i18n.mjs
+
+      - name: Shell scripts (bash -n, shellcheck)
+        env:
+          REQUIRE_SHELLCHECK: '1'
+        run: bash ci/check-shell.sh
+
+      - name: Workflow lint (actionlint)
+        run: docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12 -color
+
+  backend-tests:
+    name: Backend tests (MySQL 8.4)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          # Одноразовый сервис на раннере: без пароля, чтобы в репозитории не
+          # было даже тестового пароля. Имя базы оканчивается на _test - иначе
+          # интеграционные тесты откажутся запускаться.
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_DATABASE: ci_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping -h 127.0.0.1 --silent"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: mysql+pymysql://root@127.0.0.1:3306/ci_test?charset=utf8mb4
+      TEST_DATABASE_URL: mysql+pymysql://root@127.0.0.1:3306/ci_test?charset=utf8mb4
+    defaults:
+      run:
+        working-directory: app/backend
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: app/backend/requirements-dev.txt
+
+      # requirements-dev.txt включает requirements.txt и тестовые зависимости.
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      # Миграции на пустой базе отдельным шагом: падение здесь читается лучше,
+      # чем падение фикстуры pytest.
+      - name: Apply migrations to an empty database
+        run: alembic upgrade head
+
+      - name: Run tests (unit + integration)
+        run: pytest
+
+  build-web:
+    name: Panel (lint, tests, build)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: app/web
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: app/web/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: The build has an entry point
+        run: test -f dist/index.html
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: web-dist
+          path: app/web/dist
+          retention-days: 7
+          if-no-files-found: error
+
+  image:
+    name: Docker image (compose + build + health)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      # BrewQ_image публичный, токен не нужен. Ссылка закрепляется переменной
+      # BREWQ_IMAGE_REF (ветка, тег или sha), по умолчанию main.
+      - name: Checkout BrewQ_image
+        uses: actions/checkout@v7
+        with:
+          repository: 74vahan/BrewQ_image
+          ref: ${{ vars.BREWQ_IMAGE_REF || 'main' }}
+          path: _image
+          persist-credentials: false
+
+      - name: Build and start the stack
+        env:
+          IMAGE_DOCKER_DIR: ${{ github.workspace }}/_image/docker
+          BACKEND_CONTEXT: ${{ github.workspace }}/app/backend
+        run: bash ci/image-check.sh
+
+  deploy:
+    name: Deploy to the server
+    needs: [quality, backend-tests, build-web, image]
+    # push в main или ручной запуск (в том числе для отката на старый тег).
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    # Своя группа и без отмены: два наложенных деплоя оставили бы
+    # полуразобранный каталог релиза.
+    concurrency:
+      group: brewq-infra-deploy
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Checkout BrewQ_image
+        uses: actions/checkout@v7
+        with:
+          repository: 74vahan/BrewQ_image
+          ref: ${{ vars.BREWQ_IMAGE_REF || 'main' }}
+          path: _image
+          persist-credentials: false
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: web-dist
+          path: app/web/dist
+
+      # Архивы собираются всегда: так раскладка проверяется и пока сервера нет.
+      - name: Build the deploy bundle
+        env:
+          IMAGE_DOCKER_DIR: ${{ github.workspace }}/_image/docker
+        run: bash ci/build-bundle.sh
+
+      # Пока сервера нет (нет GCP-аккаунта), задание остаётся зелёным, а не
+      # серым: его можно сразу требовать в защите ветки.
+      - name: Check deploy secrets
+        id: guard
+        env:
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          if [ -z "$SERVER_HOST" ] || [ -z "$SSH_PRIVATE_KEY" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::SERVER_HOST / SSH_PRIVATE_KEY are not configured yet - skipping the deploy."
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Write the SSH key
+        if: steps.guard.outputs.ready == 'true'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          umask 077
+          printf '%s\n' "$SSH_PRIVATE_KEY" > "$RUNNER_TEMP/deploy_key"
+
+      - name: Deploy
+        if: steps.guard.outputs.ready == 'true'
+        env:
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER || 'brewq' }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          APP_ROOT: ${{ vars.APP_ROOT || '/srv/brewq' }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          export SSH_KEY="$RUNNER_TEMP/deploy_key"
+          export RELEASE_SHA="${COMMIT_SHA:0:12}"
+          bash ci/deploy.sh
+
+      - name: Smoke test
+        if: steps.guard.outputs.ready == 'true'
+        env:
+          BASE_URL: ${{ vars.PUBLIC_BASE_URL || format('http://{0}', secrets.SERVER_HOST) }}
+        run: bash ci/smoke-test.sh
+
+      - name: Remove the SSH key
+        if: always() && steps.guard.outputs.ready == 'true'
+        run: rm -f "$RUNNER_TEMP/deploy_key"

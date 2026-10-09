@@ -1,0 +1,29 @@
+.muted {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+/* Phones: columns stack, "New" first. From tablet width: three columns side by side. */
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 48rem) {
+  .board {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.allClear {
+  max-width: 32rem;
+  margin: 3rem auto;
+  padding: 2rem 1.5rem;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  text-align: center;
+}
