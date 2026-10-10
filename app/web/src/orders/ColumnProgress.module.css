@@ -1,0 +1,16 @@
+/* Three segments for the three columns; the ones up to the current column are filled. */
+.track {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.segment {
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+}
+
+.filled {
+  background: var(--accent);
+}

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { playChime } from '../sound/chime.ts';
+import { setUnseenOrders } from '../ui/titleBadge.ts';
 import { useSoundEnabled } from '../ui/useSoundEnabled.ts';
 import { acknowledgeFresh, markFresh, resetFresh, useFreshState } from './freshOrders.ts';
 import { createNewOrderTracker } from './newOrderTracker.ts';
@@ -14,12 +15,12 @@ const ACKNOWLEDGE_EVENTS = ['pointerdown', 'keydown'] as const;
  * barista may be on the stop list or "Today" when it arrives).
  *
  * On each new order: the chime (if the barista has sound on and the browser
- * allows it), the highlight on the card, a "(2) BrewQ" counter in the tab
- * title, and a polite announcement for screen readers. Any touch or key press
+ * allows it), the highlight on the card, a "(2) Queue · BrewQ" counter in the
+ * tab title, and a polite announcement for screen readers. Any touch or key press
  * counts as "seen" and clears the highlight and the counter.
  */
 export function NewOrderWatcher() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { data } = useActiveOrders();
   const [soundOn] = useSoundEnabled();
   const fresh = useFreshState();
@@ -49,13 +50,13 @@ export function NewOrderWatcher() {
   // Only orders that are still waiting count: one already taken is no longer "new".
   const waiting = data?.filter((order) => order.status === 'NEW' && fresh.ids.has(order.id)).length ?? 0;
 
+  // The counter itself is drawn into the tab title by <DocumentTitle>.
   useEffect(() => {
-    const title = t('app.title');
-    document.title = waiting > 0 ? `(${String(waiting)}) ${title}` : title;
+    setUnseenOrders(waiting);
     return () => {
-      document.title = title;
+      setUnseenOrders(0);
     };
-  }, [waiting, t, i18n.language]);
+  }, [waiting]);
 
   return (
     <p className="visually-hidden" role="status">

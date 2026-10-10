@@ -20,7 +20,8 @@
 .ticket {
   position: relative;
   width: min(100%, 26rem);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
   background: var(--surface);
   box-shadow: var(--shadow-ticket);
 }
@@ -77,7 +78,7 @@
 .title {
   margin: 0 0 0.25rem;
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -88,10 +89,10 @@
 
 .input {
   width: 100%;
-  min-height: 48px;
+  min-height: 52px;
   padding: 0 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius-md);
   background: var(--bg);
   font-size: 1rem;
   transition: border-color var(--dur) var(--ease);
@@ -112,15 +113,19 @@
 }
 
 .submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
   min-height: 52px;
   margin-top: 0.5rem;
   padding: 0 1.5rem;
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   background: var(--accent);
   color: var(--accent-ink);
-  font-size: 1.0625rem;
-  font-weight: 800;
+  font-size: 1.1875rem;
+  font-weight: 700;
   cursor: pointer;
   touch-action: manipulation;
   transition: filter var(--dur) var(--ease), opacity var(--dur) var(--ease);
@@ -145,4 +150,21 @@
   color: var(--text-muted);
   font-size: 0.8125rem;
   text-align: center;
+}
+
+/* Small ring next to "Signing in…"; it only rotates, and stands still with prefers-reduced-motion. */
+.spinner {
+  flex: 0 0 auto;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 3px solid color-mix(in srgb, currentColor 35%, transparent);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -24,7 +24,8 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<unknown>(null);
-  const hasError = error !== null;
+  const [emptyPassword, setEmptyPassword] = useState(false);
+  const hasError = error !== null || emptyPassword;
   const passwordId = useId();
   const errorId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,9 +39,11 @@ export function LoginPage() {
     event.preventDefault();
     if (pending) return;
     if (password === '') {
+      setEmptyPassword(true);
       inputRef.current?.focus();
       return;
     }
+    setEmptyPassword(false);
     // The sign-in click is the user gesture that lets the browser play the new-order sound later.
     unlockAudio();
     setPending(true);
@@ -88,15 +91,18 @@ export function LoginPage() {
             value={password}
             onChange={(event) => {
               setPassword(event.target.value);
+              setEmptyPassword(false);
             }}
             aria-invalid={hasError}
             aria-describedby={hasError ? errorId : undefined}
           />
           <p className={styles.hint}>{t('auth.hint')}</p>
 
-          {hasError && <ErrorMessage id={errorId} error={error} />}
+          {emptyPassword && <ErrorMessage id={errorId} message={t('auth.passwordRequired')} />}
+          {error !== null && !emptyPassword && <ErrorMessage id={errorId} error={error} />}
 
           <button className={styles.submit} type="submit" disabled={pending}>
+            {pending && <span className={styles.spinner} aria-hidden="true" />}
             {pending ? t('auth.submitting') : t('auth.submit')}
           </button>
         </form>

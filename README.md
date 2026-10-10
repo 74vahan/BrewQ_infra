@@ -18,7 +18,7 @@ Docker) пройдена 10.10.2026 — `memory/INDEX.md`. Остаётся P1: 
 | Путь | Что |
 |---|---|
 | `app/backend/` | FastAPI + SQLAlchemy 2 + PyMySQL + Alembic + pytest; слои routes → services → repositories |
-| `app/web/` | React + Vite + TypeScript: очередь заказов, смена статуса, стоп-лист; i18n en/ru/hy |
+| `app/web/` | React + Vite + TypeScript: очередь заказов, смена статуса, стоп-лист; i18n en/ru/hy; шрифт Sora из npm; публичная политика конфиденциальности `/privacy.html` (+ `.ru`, `.hy`) со значениями `TODO(user)` — заполнить владельца и контакт перед релизом |
 | `app/media/menu/` | картинки меню (раздаёт nginx по `/media/`) |
 | `ci/` | скрипты проверок, сборки архива, деплоя и smoke-теста |
 | `.github/workflows/ci-cd.yml` | тесты против MySQL, сборка панели, сборка образа, деплой на VM |

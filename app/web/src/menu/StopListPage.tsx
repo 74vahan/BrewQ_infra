@@ -6,6 +6,7 @@ import { queryKeys } from '../api/queryKeys.ts';
 import { categoryKey } from '../i18n/keys.ts';
 import { ConnectionBanner } from '../ui/ConnectionBanner.tsx';
 import { LoadError } from '../ui/LoadError.tsx';
+import { LoadingState } from '../ui/LoadingState.tsx';
 import { countUnavailable, groupMenu } from './groups.ts';
 import { MenuRow } from './MenuRow.tsx';
 import styles from './StopListPage.module.css';
@@ -26,7 +27,7 @@ export function StopListPage() {
   });
 
   if (query.isPending) {
-    return <p className={styles.muted}>{t('common.loading')}</p>;
+    return <LoadingState shape="list" />;
   }
   if (!query.data) {
     return (

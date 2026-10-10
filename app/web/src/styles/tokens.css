@@ -1,60 +1,88 @@
 /*
- * Design tokens. Dark is the default (a bright screen next to an espresso
- * machine is glare); light follows prefers-color-scheme. Every text/background
- * pair below is checked against WCAG AA (4.5:1).
+ * Design tokens (redesign R5, palette and radii from design/figma).
+ *
+ * Dark is the default (a bright screen next to an espresso machine is glare);
+ * light follows prefers-color-scheme. The values are plain hex on purpose:
+ * src/styles/contrast.test.ts parses this file and checks every pair that the
+ * components use against WCAG (text 4.5:1, large bold text and controls 3:1).
+ *
+ * Rules of thumb that the checks encode:
+ *   - white on --accent (#C67C4E) is only 3.4:1, so --accent-ink is for large
+ *     bold text (buttons, 18px+); smaller text on the accent uses
+ *     --accent-ink-small;
+ *   - accent-coloured TEXT on a page or card uses --accent-strong, never --accent;
+ *   - --text-muted is not used on --accent-soft (use --text there).
  */
 
 :root {
   color-scheme: dark light;
 
-  /* Type */
+  /* Type: Sora for Latin, Noto for Cyrillic/Armenian (see fonts.css) */
   --font-sans: 'BrewQ Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   /* Surfaces */
-  --bg: #121416;
-  --surface: #1a1d20;
-  --surface-raised: #23272b;
-  --border: #3a4047;
+  --bg: #1f1f1f;
+  --surface: #313131;
+  --surface-raised: #3b3b3b;
+  --border: #4a4a4a;
+  --control-border: #8a8a8a; /* borders of inputs and switches: 3:1 against surfaces */
 
   /* Text */
-  --text: #eceff1;
-  --text-muted: #a0aab3;
+  --text: #f9f2ed;
+  --text-muted: #bdb5af;
 
-  /* Accent: crema amber. --accent-ink is the text colour ON the accent. */
-  --accent: #f0b429;
-  --accent-ink: #1d1500;
+  /* Primary (terracotta). --accent-ink: large bold text only. */
+  --accent: #c67c4e;
+  --accent-ink: #ffffff;
+  --accent-ink-small: #1f1f1f;
+  --accent-strong: #e0a47e; /* accent-coloured text and emphasis on --bg / --surface */
+  --accent-soft: #4b3a2f; /* tinted fill behind --text */
+
+  /* Fixed dark strip with the brand and navigation, same in both themes */
+  --chrome-bg: #313131;
+  --chrome-raised: #3b3b3b;
+  --chrome-text: #f9f2ed;
+  --chrome-muted: #bdb5af;
+  --chrome-accent: #e0a47e;
 
   /* Order status colours (always paired with a text label, never colour alone) */
-  --status-new: #f0b429;
-  --status-progress: #6cb4ff;
-  --status-ready: #5fd49a;
+  --status-new: #e0a47e;
+  --status-progress: #7db8ff;
+  --status-ready: #6fd8a4;
 
-  --danger: #ff8a80;
-  --danger-bg: rgb(255 138 128 / 0.12);
+  --danger: #ff9a90;
+  --danger-bg: rgb(255 154 144 / 0.14);
   --danger-ink: #2b0b08; /* text ON a --danger background */
-  --focus: #6cb4ff;
+  --focus: #7db8ff;
 
   /* Shape and rhythm */
   --radius-sm: 8px;
-  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
   --radius-pill: 999px;
   --gutter: clamp(1rem, 3vw, 2rem);
   --dur: 160ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
+  --shadow-card: 0 2px 12px rgb(0 0 0 / 0.25);
   --shadow-ticket: 0 16px 48px rgb(0 0 0 / 0.45);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #eef1f3;
+    --bg: #f9f2ed;
     --surface: #ffffff;
-    --surface-raised: #f6f8f9;
-    --border: #c5ccd2;
+    --surface-raised: #f5ede6;
+    --border: #e3e3e3;
+    --control-border: #858585;
 
-    --text: #171b1f;
-    --text-muted: #55616b;
+    --text: #313131;
+    --text-muted: #666666;
 
-    --status-new: #8a5a00;
+    --accent-strong: #9a5a32;
+    --accent-soft: #edd6c8;
+
+    --status-new: #8c512c;
     --status-progress: #0b57b0;
     --status-ready: #11704a;
 
@@ -63,6 +91,7 @@
     --danger-ink: #ffffff;
     --focus: #0b63ce;
 
-    --shadow-ticket: 0 16px 48px rgb(23 27 31 / 0.14);
+    --shadow-card: 0 2px 12px rgb(49 49 49 / 0.08);
+    --shadow-ticket: 0 16px 48px rgb(49 49 49 / 0.16);
   }
 }

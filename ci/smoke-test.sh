@@ -51,6 +51,19 @@ get today /today
 [ "$code" = "200" ] || fail "/today returned ${code} (nginx try_files fallback broken?)"
 grep -qi '^content-type:[[:space:]]*text/html' "${TMP}/today.head" || fail "/today is not text/html"
 
+# Публичные статические файлы панели (R7): без входа, и это именно они, а не
+# index.html из SPA-fallback (он тоже отвечает 200 на любой путь без файла).
+echo "==> GET /privacy.html (public privacy policy, not the SPA fallback)"
+get privacy /privacy.html
+[ "$code" = "200" ] || fail "/privacy.html returned ${code}"
+grep -qi '^content-type:[[:space:]]*text/html' "${TMP}/privacy.head" || fail "/privacy.html is not text/html"
+grep -q '<h1>Privacy policy</h1>' "${TMP}/privacy.body" || fail "/privacy.html is not the privacy page (SPA fallback swallowed it?)"
+
+echo "==> GET /robots.txt (private panel, crawlers kept out)"
+get robots /robots.txt
+[ "$code" = "200" ] || fail "/robots.txt returned ${code}"
+grep -q '^Disallow: /' "${TMP}/robots.body" || fail "/robots.txt is not the robots file (SPA fallback swallowed it?)"
+
 # Тот же приём, что для /today, но под /api/: должен дойти до backend и получить
 # JSON-конверт ошибки, а не index.html. Ловит неверный порядок location в nginx.
 echo "==> GET /api/no-such-route (reaches the API, not the SPA fallback)"

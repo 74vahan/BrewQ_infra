@@ -1,0 +1,4 @@
+# The barista panel is a private tool behind a password: nothing here is meant for search engines.
+# (privacy.html is public on purpose, but it does not need to be indexed either.)
+User-agent: *
+Disallow: /

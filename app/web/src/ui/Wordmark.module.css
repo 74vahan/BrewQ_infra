@@ -7,7 +7,7 @@
 }
 
 .q {
-  color: var(--accent);
+  color: var(--accent-strong);
 }
 
 .md {
@@ -16,4 +16,13 @@
 
 .xl {
   font-size: clamp(3rem, 14vw, 4.5rem);
+}
+
+/* On the dark header strip the text colour comes from the strip, not the page theme. */
+.onChrome {
+  color: var(--chrome-text);
+}
+
+.onChrome .q {
+  color: var(--chrome-accent);
 }

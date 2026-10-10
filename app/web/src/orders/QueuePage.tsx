@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { ConnectionBanner } from '../ui/ConnectionBanner.tsx';
 import { LoadError } from '../ui/LoadError.tsx';
+import { LoadingState } from '../ui/LoadingState.tsx';
 import { useNow } from '../ui/useNow.ts';
 import { QUEUE_COLUMNS, groupByStatus } from './columns.ts';
 import { useFreshState } from './freshOrders.ts';
@@ -16,7 +17,7 @@ export function QueuePage() {
   const { ids: freshIds } = useFreshState();
 
   if (query.isPending) {
-    return <p className={styles.muted}>{t('common.loading')}</p>;
+    return <LoadingState shape="board" />;
   }
   if (!query.data) {
     return (

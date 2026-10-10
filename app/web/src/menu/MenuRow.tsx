@@ -21,7 +21,13 @@ export function MenuRow({ item }: { item: MenuItem }) {
         <p id={nameId} className={styles.name}>
           {item.name}
         </p>
-        <p className={styles.sizes}>{item.sizes.map((entry) => t(sizeKey(entry.size))).join(' · ')}</p>
+        <ul className={styles.sizes} aria-label={t('menu.sizes')}>
+          {item.sizes.map((entry) => (
+            <li key={entry.size} className={styles.size}>
+              {t(sizeKey(entry.size))}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <AvailabilitySwitch

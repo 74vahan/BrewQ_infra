@@ -5,17 +5,19 @@ import styles from './ErrorMessage.module.css';
 
 interface ErrorMessageProps {
   /** Whatever a query/mutation threw; non-ApiErrors show the generic text. */
-  error: unknown;
+  error?: unknown;
+  /** Already translated text for a problem that is not an API failure (for example an empty field). */
+  message?: string;
   id?: string;
 }
 
 /** Translated message for an API failure, chosen by `error.code`, never by the server text. */
-export function ErrorMessage({ error, id }: ErrorMessageProps) {
+export function ErrorMessage({ error, message, id }: ErrorMessageProps) {
   const { t } = useTranslation();
-  const { code } = toApiError(error);
+  const text = message ?? t(errorKey(toApiError(error).code));
   return (
     <p className={styles.error} role="alert" {...(id ? { id } : {})}>
-      {t(errorKey(code))}
+      {text}
     </p>
   );
 }

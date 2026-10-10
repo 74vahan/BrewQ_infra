@@ -17,7 +17,8 @@
     "hint": "Ask the manager for the shop password.",
     "submit": "Sign in",
     "submitting": "Signing in…",
-    "logout": "Sign out"
+    "logout": "Sign out",
+    "passwordRequired": "Enter the shop password."
   },
   "sound": {
     "label": "New order sound",
@@ -56,7 +57,8 @@
     "unavailable": "Out of stock",
     "hint": "Switch off what has run out. Customers see these items as unavailable.",
     "outCount": "Out of stock: {{n}}",
-    "empty": "The menu is empty"
+    "empty": "The menu is empty",
+    "sizes": "Sizes"
   },
   "status": {
     "NEW": "New",
@@ -120,5 +122,10 @@
     "body": "The customer will see the order as cancelled. This cannot be undone.",
     "confirm": "Cancel order",
     "keep": "Keep order"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "There is no such address in the barista panel.",
+    "back": "Back to the queue"
   }
 }

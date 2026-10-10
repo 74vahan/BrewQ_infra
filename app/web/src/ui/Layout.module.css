@@ -10,9 +10,9 @@
   top: -4rem;
   z-index: 100;
   padding: 0.75rem 1rem;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   background: var(--accent);
-  color: var(--accent-ink);
+  color: var(--accent-ink-small);
   font-weight: 700;
   text-decoration: none;
 }
@@ -21,14 +21,16 @@
   top: 1rem;
 }
 
+/* The dark strip is the same in both themes: it carries the brand and the controls. */
 .header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem 1.5rem;
-  padding: 0.5rem var(--gutter);
+  padding: 0.625rem var(--gutter);
+  background: var(--chrome-bg);
+  color: var(--chrome-text);
   border-bottom: 1px solid var(--border);
-  background: var(--surface);
 }
 
 .brand {
@@ -46,22 +48,26 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: 0 1rem;
-  border-bottom: 3px solid transparent;
-  color: var(--text-muted);
+  padding: 0 1.125rem;
+  border-radius: var(--radius-pill);
+  color: var(--chrome-muted);
   font-weight: 600;
   text-decoration: none;
   touch-action: manipulation;
-  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  transition: color var(--dur) var(--ease), background-color var(--dur) var(--ease);
 }
 
 .link:hover {
-  color: var(--text);
+  background: var(--chrome-raised);
+  color: var(--chrome-text);
 }
 
-.active {
-  border-bottom-color: var(--accent);
-  color: var(--text);
+/* Active tab: filled pill in the primary colour, like the Deliver / Pick Up switch in the mock-ups. */
+.active,
+.active:hover {
+  background: var(--accent);
+  color: var(--accent-ink-small);
+  font-weight: 700;
 }
 
 .actions {
@@ -79,19 +85,19 @@
   gap: 0.5rem;
   min-height: 44px;
   padding: 0 0.875rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--chrome-raised);
   border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--text);
+  color: var(--chrome-text);
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
   touch-action: manipulation;
-  transition: border-color var(--dur) var(--ease);
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
 }
 
 .logout:hover {
-  border-color: var(--text-muted);
+  background: var(--chrome-raised);
 }
 
 .main {

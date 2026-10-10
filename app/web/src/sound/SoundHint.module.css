@@ -28,5 +28,5 @@
 
 .button:hover {
   background: var(--accent);
-  color: var(--accent-ink);
+  color: var(--accent-ink-small);
 }

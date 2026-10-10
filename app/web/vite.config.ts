@@ -58,10 +58,22 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
+    // Besides the panel (index.html) there are three static, script-free pages: the public privacy policy
+    // in en / ru / hy. They are entries of their own so they get hashed CSS and the same bundled fonts.
+    rollupOptions: {
+      input: {
+        main: resolve(import.meta.dirname, 'index.html'),
+        privacy: resolve(import.meta.dirname, 'privacy.html'),
+        'privacy.ru': resolve(import.meta.dirname, 'privacy.ru.html'),
+        'privacy.hy': resolve(import.meta.dirname, 'privacy.hy.html'),
+      },
+    },
   },
 
   test: {
     environment: 'node',
+    // The contrast and hygiene tests read the CSS sources as text (?raw); by default Vitest swaps CSS for an empty module.
+    css: { include: [/\.css/] },
     include: ['src/**/*.test.ts'],
   },
 });

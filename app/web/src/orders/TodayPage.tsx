@@ -4,6 +4,7 @@ import { baristaApi } from '../api/index.ts';
 import { POLL_INTERVAL_MS, queryKeys } from '../api/queryKeys.ts';
 import { ConnectionBanner } from '../ui/ConnectionBanner.tsx';
 import { LoadError } from '../ui/LoadError.tsx';
+import { LoadingState } from '../ui/LoadingState.tsx';
 import { useNow } from '../ui/useNow.ts';
 import { OrderCard } from './OrderCard.tsx';
 import { StatusChip } from './StatusChip.tsx';
@@ -21,7 +22,7 @@ export function TodayPage() {
   });
 
   if (query.isPending) {
-    return <p className={styles.muted}>{t('common.loading')}</p>;
+    return <LoadingState shape="grid" />;
   }
   if (!query.data) {
     return (

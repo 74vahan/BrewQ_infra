@@ -30,7 +30,8 @@ MIXED='(*UTF)(*UCP)\b(?=[\p{L}\p{N}_]*[A-Za-z])(?=[\p{L}\p{N}_]*[\x{0400}-\x{052
 # Second entry (BrewQ_image only, exact path from the repo root): the barista
 # stub page in terraform/scripts/bootstrap.sh.tftpl has one deliberate Russian
 # line, the ru localization next to the en/hy lines.
-ALLOWED_PATHS='(^|/)app/web/src/i18n/locales/ru\.json$|^terraform/scripts/bootstrap\.sh\.tftpl$'
+# Also the Russian privacy page of the panel (the ru version of a public text, like ru.json).
+ALLOWED_PATHS='(^|/)app/web/src/i18n/locales/ru\.json$|(^|/)app/web/privacy\.ru\.html$|^terraform/scripts/bootstrap\.sh\.tftpl$'
 # Пути, которые не проверяются вообще.
 SKIPPED_PATHS='(^|/)(node_modules|dist|build|\.venv|venv|\.git|\.claude|\.ruff_cache|\.pytest_cache|_image)/'
 

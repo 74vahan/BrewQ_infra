@@ -30,7 +30,7 @@ export function Layout() {
 
       <header className={styles.header}>
         <div className={styles.brand}>
-          <Wordmark />
+          <Wordmark tone="chrome" />
         </div>
 
         <nav className={styles.nav} aria-label={t('a11y.mainNavigation')}>

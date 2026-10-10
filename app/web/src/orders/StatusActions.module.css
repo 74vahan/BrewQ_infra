@@ -8,28 +8,29 @@
 .cancel {
   min-height: 52px;
   padding: 0 1rem;
-  border-radius: var(--radius-sm);
-  font-size: 1.0625rem;
-  font-weight: 800;
+  border-radius: var(--radius-md);
   cursor: pointer;
   touch-action: manipulation;
-  transition: filter var(--dur) var(--ease), opacity var(--dur) var(--ease);
+  transition: filter var(--dur) var(--ease), opacity var(--dur) var(--ease), background-color var(--dur) var(--ease);
 }
 
-/* The big forward button takes the row; cancel sits beside it, quieter. */
+/* The big forward button takes the row; cancel sits beside it, quieter. 19px bold counts as large text for contrast. */
 .primary {
   flex: 3 1 8rem;
   border: 0;
   background: var(--accent);
   color: var(--accent-ink);
+  font-size: 1.1875rem;
+  font-weight: 700;
 }
 
 .cancel {
   flex: 1 1 5rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--control-border);
   background: transparent;
   color: var(--danger);
   font-size: 0.9375rem;
+  font-weight: 700;
 }
 
 .primary:hover:not(:disabled) {
@@ -42,6 +43,7 @@
 
 .cancel:hover:not(:disabled) {
   border-color: var(--danger);
+  background: var(--danger-bg);
 }
 
 .primary:disabled,

@@ -5,10 +5,9 @@ import en from './locales/en.json';
 import hy from './locales/hy.json';
 import ru from './locales/ru.json';
 
-/** Keeps <html lang> and the tab title in step with the interface language. */
+/** Keeps <html lang> in step with the interface language (the tab title is <DocumentTitle>'s job). */
 function syncDocument(language: string): void {
   document.documentElement.lang = language;
-  document.title = i18n.t('app.title');
 }
 
 void i18n.use(initReactI18next).init({

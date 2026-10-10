@@ -6,7 +6,7 @@
   gap: 0 1rem;
   padding: 0 var(--gutter);
   background: var(--accent);
-  color: var(--accent-ink);
+  color: var(--accent-ink-small);
 }
 
 .text {

@@ -5,30 +5,50 @@
   min-width: 0;
   padding: 0.75rem 1rem;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
   background: var(--surface);
+  box-shadow: var(--shadow-card);
 }
 
 .stopped {
   border-style: dashed;
+  box-shadow: none;
 }
 
 .text {
+  display: flex;
   flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.375rem;
   min-width: 0;
 }
 
 .name {
   margin: 0;
   overflow-wrap: anywhere;
-  font-size: 1.0625rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
+/* Offered sizes as small outlined chips, like the S / M / L selector of the mobile app. */
 .sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
   margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.size {
+  min-width: 2rem;
+  padding: 0.0625rem 0.5rem;
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius-sm);
   color: var(--text-muted);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: center;
 }
 
 /* Phones: the switch drops under the name, its label stays readable. */

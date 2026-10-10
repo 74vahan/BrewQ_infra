@@ -17,7 +17,8 @@ ci/
   build-bundle.sh     — собирает app.tar.gz + web.tar.gz и проверяет их раскладку
   deploy.sh           — копирует архивы на сервер по ssh и запускает remote-deploy.sh
   remote-deploy.sh    — выполняется НА сервере (stdin -> bash -s)
-  smoke-test.sh       — проверки после деплоя по PUBLIC_BASE_URL
+  smoke-test.sh       — проверки после деплоя по PUBLIC_BASE_URL (в т.ч. /privacy.html и /robots.txt)
+  make-web-icons.sh   — руками: PNG-иконки панели из app/web/public/favicon.svg (sharp-cli), PNG в git
 ```
 
 ## Задания
@@ -66,6 +67,7 @@ GCP-аккаунта нет). Архивы при этом всё равно с�
 разрешена целиком, переменная `ALLOWED_PATHS` в скрипте):
 
 - `app/web/src/i18n/locales/ru.json` — ru-переводы панели (путь с любым префиксом);
+- `app/web/privacy.ru.html` — русская версия публичной политики конфиденциальности (R7);
 - `terraform/scripts/bootstrap.sh.tftpl` — только BrewQ_image и только этот путь
   от корня проверяемого репозитория (регэксп `^…$`, без `(^|/)`): одна
   легитимная русская строка `<p>BrewQ скоро откроется.</p>` — ru-локализация
