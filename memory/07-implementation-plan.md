@@ -218,7 +218,7 @@ bootstrap — `bash -n`; `shellcheck` (в CI). `apply` **не выполняет
 `terraform apply` → `push-github-secrets.sh REPO=74vahan/BrewQ_infra` →
 первый деплой (`workflow_dispatch`) → smoke-тест → выдать баристе пароль
 (`terraform output -raw barista_password`) → домен и TLS → release-сборка
-Android с боевым `API_BASE_URL` и настоящими координатами кофейни: **AAB**
+Android с боевым `API_BASE_URL` (координаты кофейни временные — Туманяна, 21, подтвердить; решение Д5): **AAB**
 (`./gradlew bundleRelease -Pbrewq.apiBaseUrl=https://<домен>/api/ -Pbrewq.shopLatitude=… -Pbrewq.shopLongitude=…`
 в `BrewQ_android`, решение Д6) → загрузка `.aab` в Google Play; универсальный APK —
 только для ручной раздачи. Android-сборки в GitHub Actions нет и в P1 не нужны.

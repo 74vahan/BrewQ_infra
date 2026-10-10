@@ -278,9 +278,15 @@
   настройках панели.
 - Почему: схема БД и контракт API зафиксированы пользователем; карта нужна одному
   клиенту, а позиция кофейни меняется раз в жизни. Android берёт её из Gradle-свойств
-  `brewq.shopLatitude` / `brewq.shopLongitude` (`BuildConfig`), release-сборка не
-  собирается, пока стоит заглушка (`TODO(user)`). За интерфейсом
+  `brewq.shopLatitude` / `brewq.shopLongitude` (`BuildConfig`). За интерфейсом
   `ShopLocationProvider` позже можно подключить `GET /api/shop` без правок UI.
+- **Обновлено 10.10.2026 (решение пользователя «пока»): место временное —
+  ул. Туманяна, 21, Ереван** (en «21 Tumanyan St, Yerevan», hy «Թումանյան փողոց 21,
+  Երևան»), координаты OSM Nominatim 40.1829612 / 44.5164167 вместо заглушки (площадь
+  Республики). Значение в `BrewQ_android/gradle.properties` (`TODO(user)`: подтвердить
+  окончательное место), текст адреса — `shop_address` в строках Android (en/ru/hy,
+  только подпись точки для навигатора). Защита «release не собирается с заглушкой»
+  снята. Подробно — `BrewQ_android/memory/03-decisions.md` (решение 44).
   Геопозиция пользователя остаётся на устройстве; карта ходит на тайл-сервер
   OpenFreeMap без `X-Device-Id`. Подробно — `BrewQ_android/memory/01-architecture.md`.
 
