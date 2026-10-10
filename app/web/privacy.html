@@ -66,9 +66,10 @@
           <h2>Your location</h2>
           <p>
             When your order is ready, the app can show a map with the coffee shop and, if you allow it, your
-            position. Your position is used only on your phone, only while the app is open, and is never sent
-            to our server or to anyone else. Allowing location is optional; the map and the route button work
-            without it.
+            position. Your position is used only while the app is open and is never sent to our server. The one
+            exception is the route shown on the map: to draw it, the app sends your position and the coffee
+            shop's position to a public routing service (see below). Allowing location is optional; the map
+            and the route button work without it.
           </p>
 
           <h2>Third parties</h2>
@@ -77,6 +78,15 @@
               <strong>Map tiles.</strong> The map picture is loaded from OpenFreeMap (map data © OpenStreetMap
               contributors). To deliver the tiles, their servers necessarily see your IP address and which
               part of the map is requested. The app does not send them your device ID or your name.
+            </li>
+            <li>
+              <strong>The route on the map.</strong> If you allow location, the app asks the public routing
+              service of FOSSGIS (routing.openstreetmap.de, route data © OpenStreetMap contributors) for the
+              way from you to the coffee shop. For this their server receives your position, the coffee shop's
+              position and your IP address, and sees that the request comes from the BrewQ app. The app does
+              not send them your device ID or your name. The request is repeated when you move more than about
+              50 metres or switch between walking and driving, and not more often than every 10 seconds; it
+              stops when you leave the order screen.
             </li>
             <li>
               <strong>The "Route" button</strong> opens a navigation app of your choice with the coffee shop's
