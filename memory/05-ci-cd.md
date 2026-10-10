@@ -231,3 +231,10 @@ service-контейнера, `docker run actionlint`, кэши pip/npm, пра�
 actions), реальный `terraform apply`/сервер/nginx/`docker compose` на VM,
 `workflow_dispatch`. Локальная ветка названа `master`, workflow срабатывает на
 `main` — перед первым push ветку нужно переименовать.
+
+## Android в CI не участвует
+
+Workflow `ci-cd.yml` Android не собирает и не публикует. Release Android — AAB
+(`./gradlew bundleRelease` в `BrewQ_android`, ручная локальная сборка; универсальный
+APK — только для ручной раздачи), см. `06-decisions.md` (Д6) и
+`BrewQ_android/README.md`. Секретов подписи Android в репозитории и в GitHub нет.

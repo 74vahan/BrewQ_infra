@@ -64,6 +64,7 @@ Docker) пройдена 10.10.2026 — `memory/INDEX.md`. Остаётся P1: 
 | Health | `GET /api/health` (жив), `GET /api/health/ready` (БД) | BrewQ_infra |
 | GitHub `74vahan/BrewQ_infra` | secrets `SERVER_HOST`, `SERVER_USER`, `SSH_PRIVATE_KEY`, `SSH_KNOWN_HOSTS`; variables `APP_ROOT`, `PUBLIC_BASE_URL` — кладёт `BrewQ_image/terraform/scripts/push-github-secrets.sh`; variable `BREWQ_IMAGE_REF` (по умолчанию `main`) — вручную | BrewQ_image → BrewQ_infra |
 | API для Android | `<PUBLIC_BASE_URL>/api/`; debug — `http://127.0.0.1:8081/api/` через `adb reverse tcp:8081 tcp:8081` | BrewQ_android |
+| Release Android | AAB для Google Play: `./gradlew bundleRelease -Pbrewq.apiBaseUrl=https://<домен>/api/ -Pbrewq.shopLatitude=… -Pbrewq.shopLongitude=…` (в CI не входит; универсальный APK — только ручная раздача) | BrewQ_android |
 | Контракт API | `BrewQ_infra/memory/03-api.md`, ошибки `{"error":{"code","message","details"}}`, клиент — заголовок `X-Device-Id` (UUID v4) | BrewQ_infra |
 | Локальная раскладка | репозитории — соседи: `DrewQ/BrewQ_infra`, `DrewQ/BrewQ_image`, `DrewQ/BrewQ_android`; `BACKEND_CONTEXT` по умолчанию `../../BrewQ_infra/app/backend` | все |
 

@@ -283,3 +283,17 @@
   `ShopLocationProvider` позже можно подключить `GET /api/shop` без правок UI.
   Геопозиция пользователя остаётся на устройстве; карта ходит на тайл-сервер
   OpenFreeMap без `X-Device-Id`. Подробно — `BrewQ_android/memory/01-architecture.md`.
+
+### Д6. Android-релиз — AAB для Google Play, не APK; в CI не входит (10.10.2026)
+- Решение пользователя после R4: нативная MapLibre под 4 ABI сделала универсальный
+  release-APK 44 МБ; в Google Play публикуется Android App Bundle
+  (`bundleRelease`, 20,2 МБ; устройство получает одну ABI, ≈ 6,2 МБ загрузки на
+  arm64-v8a, замер bundletool). Универсальный APK (`assembleRelease`) — только
+  для ручной раздачи.
+- `.github/workflows/ci-cd.yml` Android не собирает (только backend, панель,
+  деплой), поэтому переключать в CI нечего; добавлять сборку и секреты подписи
+  без просьбы не стали. Если понадобится: job с `./gradlew bundleRelease -P…` и
+  загрузкой `app-release.aab` как артефакта; upload-ключ — только секретами
+  репозитория (`keystore.properties` создаётся в job, в git его нет).
+- Детали, защита `preReleaseBuild`, подпись и размеры по ABI —
+  `BrewQ_android/memory/03-decisions.md` (решение 43) и `04-toolchain.md`.
