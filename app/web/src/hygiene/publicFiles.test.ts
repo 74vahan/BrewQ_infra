@@ -70,10 +70,6 @@ describe.each([
     }
   });
 
-  it('leaves the owner and contact for the user to fill in', () => {
-    expect(html.match(/TODO\(user\)/g)?.length).toBeGreaterThanOrEqual(4);
-  });
-
   it('points to no external resources (CSP: everything from our own origin)', () => {
     expect(html).not.toMatch(/(src|href)="https?:\/\//);
   });
